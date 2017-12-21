@@ -324,7 +324,7 @@ class ToolchainCL(object):
         generic_parser.add_argument(
             '--java-build-tool',
             dest='java_build_tool', default='auto',
-            choices=['auto', 'ant', 'gradle'],
+            choices=['auto', 'ant', 'gradle', 'none'],
             help=('The java build tool to use when packaging the APK, defaults '
                   'to automatically selecting an appropriate tool.'))
 
@@ -777,7 +777,7 @@ class ToolchainCL(object):
                     else:
                         info('    Building with ant, as no gradle executable detected')
 
-            if build_type == 'gradle':
+            elif build_type == 'gradle':
                 # gradle-based build
                 env["ANDROID_NDK_HOME"] = self.ctx.ndk_dir
                 env["ANDROID_HOME"] = self.ctx.sdk_dir
@@ -799,6 +799,9 @@ class ToolchainCL(object):
                 apk_dir = join(dist.dist_dir, "build", "outputs", "apk")
                 apk_glob = "*-{}.apk"
                 apk_add_version = True
+
+            elif build_type == 'none':
+                return
 
             else:
                 # ant-based build
