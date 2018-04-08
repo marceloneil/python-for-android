@@ -10,8 +10,8 @@ import sh
 EXCLUDE_EXTS = (".py", ".pyc", ".so.o", ".so.a", ".so.libs", ".pyx")
 
 
-class EmptyBootstrap(Bootstrap):
-    name = 'empty'
+class LibraryBootstrap(Bootstrap):
+    name = 'library'
 
     recipe_depends = []
 
@@ -132,6 +132,6 @@ class EmptyBootstrap(Bootstrap):
 
         self.strip_libraries(arch)
         self.fry_eggs(site_packages_dir)
-        super(EmptyBootstrap, self).run_distribute()
+        super(LibraryBootstrap, self).run_distribute()
 
-bootstrap = EmptyBootstrap()
+bootstrap = LibraryBootstrap()

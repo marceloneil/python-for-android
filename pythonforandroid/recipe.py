@@ -648,6 +648,8 @@ class BootstrapNDKRecipe(Recipe):
         return join(self.get_build_container_dir(arch), self.dir_name)
 
     def get_jni_dir(self):
+        if 'JNI_PATH' in environ:
+            return environ['JNI_PATH']
         return join(self.ctx.bootstrap.build_dir, 'jni')
 
 
@@ -669,6 +671,8 @@ class NDKRecipe(Recipe):
         return join(self.get_build_dir(arch.arch), 'obj', 'local', arch.arch)
 
     def get_jni_dir(self, arch):
+        if 'JNI_PATH' in environ:
+            return environ['JNI_PATH']
         return join(self.get_build_dir(arch.arch), 'jni')
 
     def build_arch(self, arch, *extra_args):
